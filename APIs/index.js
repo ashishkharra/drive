@@ -13,7 +13,10 @@ const app = express();
 const isProduction = process.env.NODE_ENV === 'production';
 const uri = process.env.MONGO_URI;
 app.use(express.json());
-app.use(cors({ origin: process.env.FRONTEND_PORT, credentials: true }));
+app.use(cors({
+    origin: 'https://drive-hxq7.vercel.app',  // Specify the frontend's origin
+    credentials: true,  // Allow cookies and credentials
+  }));
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
