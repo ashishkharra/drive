@@ -1,6 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 export default defineConfig({
@@ -12,7 +13,18 @@ export default defineConfig({
         target: process.env.VITE_BACKEND_URL || 'http://localhost:3000',
         changeOrigin: true,
         secure: false,
-      }
-    }
-  }
-})
+      },
+    },
+  },
+  // Fix for MIME type issues on Netlify
+  build: {
+    rollupOptions: {
+      output: {
+        // Ensure JS files have correct extensions
+        entryFileNames: `[name].js`,
+        chunkFileNames: `[name].js`,
+        assetFileNames: `[name].[ext]`,
+      },
+    },
+  },
+});

@@ -1,4 +1,30 @@
 [[headers]]
-  for = "/*.js"  # Only applies to .js files
+  for = "/*.js"
   [headers.values]
-    Content-Type = "application/javascript; charset=utf-8"
+    Content-Type = "application/javascript"
+a[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Redirect API calls to your backend (for production)
+[[redirects]]
+  from = "/api/*"
+  to = "https://drive-eight-inky.vercel.app/"  # Replace with your backend URL
+  status = 200
+  force = true
+
+# Fix MIME type for JS files
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Content-Type = "application/javascript"
+
+# SPA fallback for client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+[[headers]]
+  for = "/*.jsx"
+  [headers.values]
+    Content-Type = "application/javascript"
