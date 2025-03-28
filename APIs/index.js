@@ -35,7 +35,7 @@ app.use(session({
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: process.env.FRONTEND_PORT,
+        origin: 'https://drive-hxq7.vercel.app/',
         methods: ["GET", "POST"],
         credentials: true
     },
