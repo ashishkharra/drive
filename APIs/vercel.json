@@ -1,24 +1,5 @@
 {
   "version": 2,
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Content-Security-Policy",
-          "value": "script-src 'self' https://www.gstatic.com 'unsafe-inline' 'unsafe-eval' blob: data;"
-        },
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
-        {
-          "key": "Access-Control-Allow-Credentials",
-          "value": "true"
-        }
-      ]
-    }
-  ],
   "builds": [
     {
       "src": "./index.js",
@@ -29,6 +10,20 @@
     {
       "src": "/(.*)",
       "dest": "/"
+    }
+  ],
+  "headers": [
+    {
+      "key": "Content-Security-Policy",
+      "value": "script-src 'self' https://www.gstatic.com 'unsafe-inline' 'unsafe-eval' blob: data;"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Credentials",
+      "value": "true"
     }
   ]
 }
