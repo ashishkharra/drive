@@ -13,7 +13,7 @@ const OAuth = ({ para }) => {
             const auth = getAuth(app);
             const result = await signInWithPopup(auth, provider);
     
-            const res = await axios.post('/OAuth', {
+            const res = await axios.post('https://drive-eight-inky.vercel.app/OAuth', {
                 full_name: result.user.displayName,
                 email: result.user.email,
             });

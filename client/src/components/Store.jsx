@@ -8,7 +8,7 @@ export const userAuth = create((set) => ({
 
     fetchUser: async () => {
         try {
-            const response = await fetch('/validate', {
+            const response = await fetch('https://drive-eight-inky.vercel.app/validate', {
                 method: 'GET',
                 credentials: 'include',
             });
@@ -35,7 +35,7 @@ export const userAuth = create((set) => ({
 
     logout: async () => {
         try {
-            const response = await fetch('/sign-out', { 
+            const response = await fetch('https://drive-eight-inky.vercel.app/sign-out', { 
                 method: 'GET', 
                 credentials: 'include' 
             });
