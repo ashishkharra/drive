@@ -15,23 +15,9 @@ const uri = process.env.MONGO_URI;
 
 app.use((req, res, next) => {
     res.setHeader(
-      "Content-Security-Policy",
-      [
-        "default-src 'none'",
-        "base-uri 'self'",
-        "form-action 'self'",
-        "script-src 'self' https://www.gstatic.com https://ssl.gstatic.com https://apis.google.com 'unsafe-inline' 'unsafe-eval' blob: data:",
-        "script-src-elem 'self' https://www.gstatic.com https://ssl.gstatic.com https://apis.google.com 'unsafe-inline'",
-        "style-src 'self' https://www.gstatic.com 'unsafe-inline'",
-        "connect-src 'self' https://www.googleapis.com https://*.googleapis.com",
-        "img-src 'self' https://www.gstatic.com data:",
-        "font-src 'self' https://www.gstatic.com data:",
-        "frame-src 'self' https://www.gstatic.com https://accounts.google.com",
-        "media-src 'self'",
-        "object-src 'none'",
-        "report-uri https://your-domain.com/csp-reports"
-      ].join("; ")
-    );
+        "Content-Security-Policy",
+        "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;"
+      );
     next();
   });
 app.use(express.json());
