@@ -35,10 +35,10 @@ app.use(session({
     }
 }));
 
-app.use((req, res, next) => {
-    res.setHeader("Content-Security-Policy", "script-src 'self' https://www.gstatic.com;");  // Allow gstatic
-    next();
-});
+// app.use((req, res, next) => {
+//     res.setHeader("Content-Security-Policy", "script-src 'self' https://www.gstatic.com;");  // Allow gstatic
+//     next();
+// });
 
 
 const server = http.createServer(app);
