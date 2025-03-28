@@ -1,4 +1,5 @@
 const express = require("express");
+const User = require('./config/user.model.js')
 const http = require("http");
 const { Server } = require("socket.io");
 const { google } = require("googleapis");
@@ -6,7 +7,6 @@ const session = require('express-session');
 const MongoStore = require("connect-mongo");
 const cors = require("cors");
 const mongoose = require('mongoose');
-const router = require('./routes/auth.route.js');
 require("dotenv").config();
 
 const app = express();
@@ -68,7 +68,7 @@ io.on("connection", (socket) => {
         console.log(`User joined document: ${docId}`);
         socket.join(docId);
     });
-    socket.on('send-changes', async({ docId, content }) => {
+    socket.on('send-changes', async ({ docId, content }) => {
         console.log(docId, '\n', content)
         content = content.replace(/\n{3,}/g, "\n\n");
         await updateGoogleDocContent(docId, content);
@@ -136,9 +136,69 @@ async function updateGoogleDocContent(docId, newText, io) {
 }
 
 
-app.get('/',(req,res) => {
-    res.json({message : 'success'})
+app.get('/', (req, res) => {
+    res.json({ message: 'success' })
 })
-app.use('/api', router)
+
+app.post('/OAuth', async (req, res) => {
+    try {
+        const email = req.body.email;
+        let user = await User.findOne({ email });
+        if (!user) {
+            const fullName = req.body.full_name;
+            user = new User({ full_name: fullName, email });
+            await user.save();
+        }
+        req.session.user = { id: user._id };
+
+        return res.status(200).json({
+            success: true,
+            message: 'Sign in successfully',
+            user: { id: user._id }
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(400).json({ message: error.message });
+    }
+})
+
+app.get('/validate', async (req, res) => {
+    try {
+        if (req.session && req.session.user) {
+            return res.status(200).json({ user: { id: req.session.user.id } });
+        }
+
+        return res.status(401).jsson({ message: "User not authenticated" });
+
+    } catch (error) {
+        return res.status(500).json({ message: "Internal server error" });
+    }
+})
+
+app.get('/sign-out', async (req, res) => {
+    try {
+        if (!req.session) {
+            return res.status(200).json({ message: 'No active session' });
+        }
+
+        req.session.destroy((err) => {
+            if (err) {
+                return res.status(500).json({ message: 'Logout failed' });
+            }
+
+            res.cookie('connect.sid', '', {
+                httpOnly: true,
+                secure: false,
+                sameSite: 'Strict',
+                maxAge: 0
+            });
+
+            return res.status(200).json({ message: 'Logged out successfully' });
+        });
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+})
+
 
 server.listen(3000, () => console.log("Server running on port 3000"));
