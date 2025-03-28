@@ -17,7 +17,7 @@ const App = () => {
   },[userId]);
   return (
     <div>
-      <BrowserRouter>
+      <BrowserRouter basename='/'>
         <Suspense fallback={<div className="flex h-96 justify-center items-center"><Loading /></div>}>
           <Routes>
             <Route path="/" element={<Register />} />
