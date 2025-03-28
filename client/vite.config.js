@@ -18,7 +18,10 @@ export default defineConfig({
   },
   // Fix for MIME type issues on Netlify
   build: {
-    outDir: 'dist',
-    emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        assetFileNames: 'assets/[name].[ext]'
+      }
+    }
   }
 });

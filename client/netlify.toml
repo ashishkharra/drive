@@ -2,12 +2,19 @@
   command = "npm run build"
   publish = "dist"
 
+# Client-side routing support
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
+# MIME type fixes
 [[headers]]
   for = "/*.js"
   [headers.values]
     Content-Type = "application/javascript"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Content-Type = "text/css"
