@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cors({
     origin: 'https://drive-hxq7.vercel.app',  // Specify the frontend's origin
     credentials: true,  // Allow cookies and credentials
-  }));
+}));
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -34,6 +34,12 @@ app.use(session({
         maxAge: 1000 * 60 * 60,
     }
 }));
+
+app.use((req, res, next) => {
+    res.setHeader("Content-Security-Policy", "script-src 'self' https://www.gstatic.com;");  // Allow gstatic
+    next();
+});
+
 
 const server = http.createServer(app);
 const io = new Server(server, {
