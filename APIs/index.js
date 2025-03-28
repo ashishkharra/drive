@@ -14,12 +14,13 @@ const isProduction = process.env.NODE_ENV === 'production';
 const uri = process.env.MONGO_URI;
 
 app.use((req, res, next) => {
-    res.setHeader(
-        "Content-Security-Policy",
-        "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;"
-      );
+    console.log('Existing headers:', res.getHeaders());
     next();
-  });
+});
+app.get('/csp-test', (req, res) => {
+    res.setHeader('Content-Security-Policy', "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;");
+    res.send('<script>console.log("CSP TEST PASSED")</script>');
+});
 app.use(express.json());
 app.use(cors({
     origin: 'https://drive-hxq7.vercel.app',  // Specify the frontend's origin
