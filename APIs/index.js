@@ -35,12 +35,18 @@ app.use(session({
     }
 }));
 
+// In your Express middleware
 app.use((req, res, next) => {
     res.setHeader(
         "Content-Security-Policy",
-        "script-src 'self' https://www.gstatic.com 'unsafe-inline' 'unsafe-eval' blob: data:;" +
-        "frame-src https://www.gstatic.com;" +  // Add if scripts load in iframes
-        "connect-src 'self' https://www.googleapis.com;"  // For API calls to Google
+        [
+            "default-src 'self'",
+            "script-src 'self' https://www.gstatic.com 'unsafe-inline' 'unsafe-eval' blob: data:",
+            "frame-src https://www.gstatic.com",
+            "connect-src 'self' https://www.googleapis.com",
+            "style-src 'self' 'unsafe-inline'",
+            "img-src 'self' data:"
+        ].join("; ")
     );
     next();
 });
