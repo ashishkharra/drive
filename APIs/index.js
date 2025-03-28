@@ -35,17 +35,18 @@ app.use(session({
     }
 }));
 
-// In your Express middleware
+
 app.use((req, res, next) => {
     res.setHeader(
         "Content-Security-Policy",
         [
             "default-src 'self'",
-            "script-src 'self' https://www.gstatic.com 'unsafe-inline' 'unsafe-eval' blob: data:",
-            "frame-src https://www.gstatic.com",
-            "connect-src 'self' https://www.googleapis.com",
-            "style-src 'self' 'unsafe-inline'",
-            "img-src 'self' data:"
+            "script-src 'self' https://www.gstatic.com https://apis.google.com 'unsafe-inline' 'unsafe-eval' blob: data:",
+            "frame-src 'self' https://www.gstatic.com https://accounts.google.com",
+            "style-src 'self' https://www.gstatic.com 'unsafe-inline'",
+            "connect-src 'self' https://www.googleapis.com https://*.googleapis.com",
+            "img-src 'self' https://www.gstatic.com data:",
+            "font-src 'self' https://www.gstatic.com data:"
         ].join("; ")
     );
     next();
