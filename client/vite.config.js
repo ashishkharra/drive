@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export default defineConfig({
-  base: './',
+  base: './src',
   plugins: [react()],
   server: {
     proxy: {
