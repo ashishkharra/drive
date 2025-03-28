@@ -136,7 +136,9 @@ async function updateGoogleDocContent(docId, newText, io) {
 }
 
 
-
+app.get('/',(req,res) => {
+    res.json({message : 'success'})
+})
 app.use('/api', router)
 
 server.listen(3000, () => console.log("Server running on port 3000"));
