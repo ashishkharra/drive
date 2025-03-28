@@ -18,13 +18,7 @@ export default defineConfig({
   },
   // Fix for MIME type issues on Netlify
   build: {
-    rollupOptions: {
-      output: {
-        // Ensure JS files have correct extensions
-        entryFileNames: `[name].js`,
-        chunkFileNames: `[name].js`,
-        assetFileNames: `[name].[ext]`,
-      },
-    },
-  },
+    outDir: 'dist',
+    emptyOutDir: true,
+  }
 });
