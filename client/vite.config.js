@@ -18,9 +18,15 @@ export default defineConfig({
   },
   // Fix for MIME type issues on Netlify
   build: {
+    outDir: 'dist',
     rollupOptions: {
+      input: {
+        main: './index.html'
+      },
       output: {
-        assetFileNames: 'assets/[name].[ext]'
+        assetFileNames: 'assets/[name].[hash].[ext]',
+        entryFileNames: 'assets/[name].[hash].js',
+        chunkFileNames: 'assets/[name].[hash].js'
       }
     }
   }
