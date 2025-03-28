@@ -8,7 +8,7 @@ export const userAuth = create((set) => ({
 
     fetchUser: async () => {
         try {
-            const response = await fetch('/api/validate', {
+            const response = await fetch('/validate', {
                 method: 'GET',
                 credentials: 'include',
             });
@@ -35,7 +35,7 @@ export const userAuth = create((set) => ({
 
     logout: async () => {
         try {
-            const response = await fetch('/api/sign-out', { 
+            const response = await fetch('/sign-out', { 
                 method: 'GET', 
                 credentials: 'include' 
             });

@@ -13,7 +13,7 @@ const OAuth = ({ para }) => {
             const auth = getAuth(app);
             const result = await signInWithPopup(auth, provider);
     
-            const res = await axios.post('/api/OAuth', {
+            const res = await axios.post('/OAuth', {
                 full_name: result.user.displayName,
                 email: result.user.email,
             });
