@@ -36,7 +36,12 @@ app.use(session({
 }));
 
 app.use((req, res, next) => {
-    res.setHeader("Content-Security-Policy", "script-src 'self' https://www.gstatic.com;");  // Allow gstatic
+    res.setHeader(
+        "Content-Security-Policy",
+        "script-src 'self' https://www.gstatic.com 'unsafe-inline' 'unsafe-eval' blob: data:;" +
+        "frame-src https://www.gstatic.com;" +  // Add if scripts load in iframes
+        "connect-src 'self' https://www.googleapis.com;"  // For API calls to Google
+    );
     next();
 });
 
