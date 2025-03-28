@@ -13,19 +13,23 @@ const app = express();
 const isProduction = process.env.NODE_ENV === 'production';
 const uri = process.env.MONGO_URI;
 
-// Replace existing CSP middleware with this:
 app.use((req, res, next) => {
     res.setHeader(
       "Content-Security-Policy",
       [
-        "default-src 'self'",
+        "default-src 'none'",
+        "base-uri 'self'",
+        "form-action 'self'",
         "script-src 'self' https://www.gstatic.com https://ssl.gstatic.com https://apis.google.com 'unsafe-inline' 'unsafe-eval' blob: data:",
         "script-src-elem 'self' https://www.gstatic.com https://ssl.gstatic.com https://apis.google.com 'unsafe-inline'",
-        "frame-src 'self' https://www.gstatic.com https://accounts.google.com",
         "style-src 'self' https://www.gstatic.com 'unsafe-inline'",
         "connect-src 'self' https://www.googleapis.com https://*.googleapis.com",
         "img-src 'self' https://www.gstatic.com data:",
-        "font-src 'self' https://www.gstatic.com data:"
+        "font-src 'self' https://www.gstatic.com data:",
+        "frame-src 'self' https://www.gstatic.com https://accounts.google.com",
+        "media-src 'self'",
+        "object-src 'none'",
+        "report-uri https://your-domain.com/csp-reports"
       ].join("; ")
     );
     next();
