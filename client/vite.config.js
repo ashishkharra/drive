@@ -18,7 +18,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/': {
-        target: process.env.VITE_BACKEND_PORT || 'http://localhost:3000',
+        target: 'https://drive-eight-inky.vercel.app',
         changeOrigin: true,
         secure: false,
       }
