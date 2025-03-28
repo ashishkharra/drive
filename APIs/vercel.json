@@ -14,12 +14,21 @@
   ],
   "headers": [
     {
-      "key": "Content-Security-Policy",
-      "value": "script-src 'self' https://www.gstatic.com 'unsafe-inline' 'unsafe-eval' blob: data:; frame-src https://www.gstatic.com;"
-    },
-    {
-      "key": "Access-Control-Allow-Origin",
-      "value": "*"
+      "source": "/(.*)",
+      "headers": [
+        {
+          "name": "Content-Security-Policy",
+          "value": "script-src 'self' https://www.gstatic.com 'unsafe-inline' 'unsafe-eval' blob: data:;"
+        },
+        {
+          "name": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "name": "Access-Control-Allow-Credentials",
+          "value": "true"
+        }
+      ]
     }
   ]
 }
