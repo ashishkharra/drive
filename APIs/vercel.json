@@ -11,20 +11,5 @@
       "src": "/(.*)",
       "dest": "/"
     }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "name": "Content-Security-Policy",
-          "value": "script-src 'self' https://www.gstatic.com 'unsafe-inline' 'unsafe-eval' blob: data:; frame-src https://www.gstatic.com;"
-        },
-        {
-          "name": "Access-Control-Allow-Origin",
-          "value": "*"
-        }
-      ]
-    }
   ]
 }
