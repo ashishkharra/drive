@@ -7,6 +7,7 @@ const session = require('express-session');
 const MongoStore = require("connect-mongo");
 const cors = require("cors");
 const mongoose = require('mongoose');
+const helmet = require('helmet')
 require("dotenv").config();
 
 const app = express();
@@ -17,11 +18,21 @@ app.use((req, res, next) => {
     console.log('Existing headers:', res.getHeaders());
     next();
 });
-app.get('/csp-test', (req, res) => {
-    res.setHeader('Content-Security-Policy', "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;");
-    res.send('<script>console.log("CSP TEST PASSED")</script>');
-});
+
 app.use(express.json());
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: [
+                "'self'",
+                "https://drive-hxq7.vercel.app/",
+                "'unsafe-inline'", // Only if absolutely necessary
+            ],
+            connectSrc: ["'self'", "https://drive-hxq7.vercel.app/"],
+        },
+    })
+);
 app.use(cors({
     origin: 'https://drive-hxq7.vercel.app',  // Specify the frontend's origin
     credentials: true,  // Allow cookies and credentials
