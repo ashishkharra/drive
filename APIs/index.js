@@ -27,12 +27,23 @@ app.use(
             scriptSrc: [
                 "'self'",
                 "https://drive-hxq7.vercel.app/",
-                "'unsafe-inline'", // Only if absolutely necessary
+                "https://www.gstatic.com",  // Allow Google's script
+                "https://apis.google.com",  // Allow Google API scripts
+                "'unsafe-inline'", // Only use if absolutely necessary
             ],
-            connectSrc: ["'self'", "https://drive-hxq7.vercel.app/"],
+            connectSrc: [
+                "'self'",
+                "https://drive-hxq7.vercel.app/",
+                "https://www.googleapis.com",  // Allow API requests to Google
+            ],
+            frameSrc: [
+                "'self'",
+                "https://accounts.google.com",  //Allow Google OAuth iframes
+            ],
         },
     })
 );
+
 app.use(cors({
     origin: 'https://drive-hxq7.vercel.app',  // Specify the frontend's origin
     credentials: true,  // Allow cookies and credentials
